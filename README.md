@@ -10,9 +10,17 @@ Serokell's web app servers
 
 ## Servers
 
-* **Helvetios** serokell.io staging
-* **Enif** serokell.io production
-* **Matar** Shared PostgreSQL server
+Legacy server names that are potentially confusing:
+
+| name      | provider      | purpuse                |
+|-----------|---------------|------------------------|
+| helvetios | EC2           | serokell.io staging    |
+| enif      | EC2           | serokell.io production |
+| matar     | EC2           | postgresql             |
+| sadalbari | Hetzner Cloud | hackage-search         |
+
+Other servers not mentioned are named simply after what they run, in order to
+aid discoverability and avoid confusion.
 
 ## Network
 
@@ -25,6 +33,10 @@ server names such as "matar" resolve to their private IP.
 
 Public servers have ElasticIPs associated with them, and DNS names for this and
 an IPv6 address.
+
+### Hetzner Cloud
+
+EC2 and Hetzner Cloud do not share a private network connection at this point.
 
 ## Backups
 

@@ -9,6 +9,8 @@
       flake = false;
     };
     deploy-rs.url = "github:serokell/deploy-rs";
+    hackage-search.url = "github:serokell/hackage-search";
+    hackage-search.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, serokell-nix, deploy-rs, ... }@inputs:
@@ -33,7 +35,7 @@
       deployChecks =
         mapAttrs (_: lib: lib.deployChecks self.deploy) deploy-rs.lib;
 
-      terraformFor = pkgs: pkgs.terraform.withPlugins (p: with p; [ aws ]);
+      terraformFor = pkgs: pkgs.terraform.withPlugins (p: with p; [ aws vault hcloud ]);
 
       checks = mapAttrs (_: pkgs:
         let pkgs' = pkgs.extend serokell-nix.overlay;
@@ -62,8 +64,7 @@
         sshOpts = [ "-p" "17788" ];
 
         profiles.system.user = "root";
-        profiles.system.path = deploy-rs.lib.${system}.activate.nixos
-          nixosConfig.config.system.build.toplevel;
+        profiles.system.path = deploy-rs.lib.${system}.activate.nixos nixosConfig;
       }) self.nixosConfigurations;
 
       devShell = mapAttrs (system: deploy:
