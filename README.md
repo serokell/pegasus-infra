@@ -10,17 +10,13 @@ Serokell's web app servers
 
 ## Servers
 
-Legacy server names that are potentially confusing:
-
-| name      | provider      | purpuse                |
+| Name      | Provider      | Function               |
 |-----------|---------------|------------------------|
 | helvetios | EC2           | serokell.io staging    |
 | enif      | EC2           | serokell.io production |
 | matar     | EC2           | postgresql             |
 | sadalbari | Hetzner Cloud | hackage-search         |
 
-Other servers not mentioned are named simply after what they run, in order to
-aid discoverability and avoid confusion.
 
 ## Network
 
