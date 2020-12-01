@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, inputs, ...}:
 with lib;
 let
   vs = config.vault-secrets.secrets;
@@ -6,6 +6,11 @@ let
   port = 8080;
   profile = "/nix/var/nix/profiles/per-user/${name}/www";
 in {
+  imports = [
+    inputs.serokell-nix.nixosModules.oauth2_proxy
+    inputs.serokell-nix.nixosModules.oauth2_proxy_nginx
+  ];
+
   users.users.${name} = {
     createHome = true;
     home = "/var/lib/${name}";
