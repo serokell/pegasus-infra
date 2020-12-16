@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  profile = "/nix/var/nix/profiles/per-user/www/ariadne-landing";
+  profile = "/nix/var/nix/profiles/per-user/bk-ariadne-landing/ariadne-landing";
   port = 8120;
 
 in {
