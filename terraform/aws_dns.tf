@@ -7,6 +7,10 @@ data "aws_route53_zone" "serokell_team" {
   name = "serokell.team"
 }
 
+data "aws_route53_zone" "serokell_io" {
+  name = "serokell.io"
+}
+
 resource "aws_route53_record" "pegasus_serokell_team" {
   zone_id = data.aws_route53_zone.serokell_team.zone_id
   name    = "pegasus.serokell.team"

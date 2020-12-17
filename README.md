@@ -16,6 +16,7 @@ Serokell's web app servers
 | enif      | EC2           | serokell.io production |
 | matar     | EC2           | postgresql             |
 | sadalbari | Hetzner Cloud | hackage-search         |
+| markab    | Hetzner Cloud | YouTrack               |
 
 
 ## Network
