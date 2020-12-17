@@ -28,10 +28,10 @@ resource "aws_route53_record" "markab_pegasus_serokell_team_ipv6" {
   records = [hcloud_server.markab.ipv6_address]
 }
 
-resource "aws_route53_record" "issues_serokell_io" {
-  zone_id = data.aws_route53_zone.serokell_io.zone_id
-  name    = "issues.serokell.io"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["markab.${aws_route53_zone.pegasus_serokell_team.name}"]
-}
+#resource "aws_route53_record" "issues_serokell_io" {
+#  zone_id = data.aws_route53_zone.serokell_io.zone_id
+#  name    = "issues.serokell.io"
+#  type    = "CNAME"
+#  ttl     = "60"
+#  records = ["markab.${aws_route53_zone.pegasus_serokell_team.name}"]
+#}
