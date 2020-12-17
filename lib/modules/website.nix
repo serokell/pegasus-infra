@@ -1,14 +1,18 @@
-{ config, lib, pkgs, inputs, ...}:
+{ config, lib, pkgs, ...}:
 with lib;
 let
   vs = config.vault-secrets.secrets;
   name = "www";
   port = 8080;
   profile = "/nix/var/nix/profiles/per-user/${name}/www";
+
+  # custom oauth2_proxy package which allows the website to check auth itself
+  oauth2_proxy-serokell = pkgs.callPackage ../packages/oauth2_proxy {};
+
 in {
   imports = [
-    inputs.serokell-nix.nixosModules.oauth2_proxy
-    inputs.serokell-nix.nixosModules.oauth2_proxy_nginx
+    ./oauth2_proxy.nix
+    ./oauth2_proxy_nginx.nix
   ];
 
   users.users.${name} = {
@@ -36,6 +40,8 @@ in {
     inherit (config.networking) domain hostName;
   in {
     enable = true;
+    package = oauth2_proxy-serokell;
+
     email.domains = [ "serokell.io" ];
     keyFile = "${vs.oauth2_proxy}/environment";
     setXauthrequest = true;
