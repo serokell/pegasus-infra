@@ -9,7 +9,7 @@
     enable = true;
     virtualHosts = {
       youtrack = {
-        serverName = "issues.serokell.io";
+        serverName = "issues-new.serokell.io";
         enableACME = true;
         forceSSL = true;
       };
