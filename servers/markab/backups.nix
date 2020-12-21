@@ -12,8 +12,6 @@ in {
     "d /var/lib/backup 0700 -"
   ];
 
-  systemd.services.borgbackup-job-backup.enable = false;
-
   services.borgbackup.jobs.backup = {
     repo = "12482@ch-s012.rsync.net:youtrack";
 
