@@ -81,7 +81,6 @@ in {
           proxyPass = "http://127.0.0.1:${toString port}";
           extraConfig = ''
             proxy_set_header X-User  $user;
-            error_page 404 = /404;
           '';
         };
 
