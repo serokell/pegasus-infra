@@ -79,18 +79,12 @@ in {
 
         "/" = {
           proxyPass = "http://127.0.0.1:${toString port}";
-          extraConfig = ''
-            proxy_set_header X-User  $user;
-            error_page 404 = /404;
-          '';
         };
 
         "/api" = {
           proxyPass = "http://127.0.0.1:${toString port}";
           extraConfig = ''
-            proxy_intercept_errors off;
             expires -1;
-            error_page 404 = /404;
 
             auth_request /oauth2/auth;
             error_page 401 = /oauth2/sign_in;
