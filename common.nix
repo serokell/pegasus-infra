@@ -4,8 +4,6 @@ let
 in {
   imports = [
     inputs.serokell-nix.nixosModules.common
-    inputs.serokell-nix.nixosModules.oauth2_proxy
-    inputs.serokell-nix.nixosModules.oauth2_proxy_nginx
     inputs.serokell-nix.nixosModules.serokell-users
     inputs.serokell-nix.nixosModules.vault-secrets
   ];

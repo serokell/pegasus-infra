@@ -5,7 +5,16 @@ let
   name = "www";
   port = 8080;
   profile = "/nix/var/nix/profiles/per-user/${name}/www";
+
+  # custom oauth2_proxy package which allows the website to check auth itself
+  oauth2_proxy-serokell = pkgs.callPackage ../packages/oauth2_proxy {};
+
 in {
+  imports = [
+    ./oauth2_proxy.nix
+    ./oauth2_proxy_nginx.nix
+  ];
+
   users.users.${name} = {
     createHome = true;
     home = "/var/lib/${name}";
@@ -31,6 +40,8 @@ in {
     inherit (config.networking) domain hostName;
   in {
     enable = true;
+    package = oauth2_proxy-serokell;
+
     email.domains = [ "serokell.io" ];
     keyFile = "${vs.oauth2_proxy}/environment";
     setXauthrequest = true;
