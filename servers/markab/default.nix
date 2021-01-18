@@ -7,4 +7,6 @@
   ];
 
   networking.hostName = "markab";
+
+  hetzner.ipv6Address = "2a01:4f9:c010:d32a::1";
 }
