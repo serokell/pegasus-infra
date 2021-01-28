@@ -10,13 +10,13 @@ Serokell's web app servers
 
 ## Servers
 
-| Name      | Provider      | Function               |
-|-----------|---------------|------------------------|
-| helvetios | EC2           | serokell.io staging    |
-| enif      | EC2           | serokell.io production |
-| matar     | EC2           | postgresql             |
-| sadalbari | Hetzner Cloud | hackage-search         |
-| markab    | Hetzner Cloud | YouTrack               |
+| Name      | Provider      | Function                                |
+|-----------|---------------|-----------------------------------------|
+| helvetios | EC2           | serokell.io staging                     |
+| enif      | EC2           | serokell.io production, ariadne-landing |
+| matar     | EC2           | postgresql                              |
+| sadalbari | Hetzner Cloud | hackage-search                          |
+| markab    | Hetzner Cloud | YouTrack                                |
 
 
 ## Network
