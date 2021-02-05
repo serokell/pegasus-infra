@@ -328,18 +328,20 @@
           "nixpkgs"
         ],
         "serokell-nix": "serokell-nix",
-        "serokell-website": "serokell-website"
+        "serokell-website": "serokell-website",
+        "servant-prometheus": "servant-prometheus"
       },
       "locked": {
-        "lastModified": 1606227623,
-        "narHash": "sha256-e5LgtKBrn3es4qDP5IRG1UGi8PPlrYWAp1IRbbcrQzQ=",
+        "lastModified": 1612524673,
+        "narHash": "sha256-pW24ICtdivaUVmuCSGnCVya2yNR4dWk/CTATCm5nvh8=",
         "owner": "serokell",
         "repo": "hackage-search",
-        "rev": "7572312102381e49259e67974c475f5060520c90",
+        "rev": "884e8eef4f1cffbb197c8e8ace389db37bea5b0c",
         "type": "github"
       },
       "original": {
         "owner": "serokell",
+        "ref": "zhenya/ghc125-slash-issues",
         "repo": "hackage-search",
         "type": "github"
       }
@@ -758,6 +760,22 @@
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/serokell/serokell-website"
+      }
+    },
+    "servant-prometheus": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607950552,
+        "narHash": "sha256-Y7B/0pfcmfeAWs0f1A5wuNTRSa/YN8MMlxl3jI+YfQI=",
+        "owner": "serokell",
+        "repo": "servant-prometheus",
+        "rev": "bb6b2fa789be01b0994130dea7fe35db92362447",
+        "type": "github"
+      },
+      "original": {
+        "owner": "serokell",
+        "repo": "servant-prometheus",
+        "type": "github"
       }
     },
     "utils": {
