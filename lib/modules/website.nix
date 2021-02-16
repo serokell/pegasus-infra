@@ -4,7 +4,7 @@ let
   vs = config.vault-secrets.secrets;
   name = "www";
   port = 8080;
-  profile = "/nix/var/nix/profiles/per-user/${name}/www";
+  profile = "/nix/var/nix/profiles/per-user/deploy/www";
 
   # custom oauth2_proxy package which allows the website to check auth itself
   oauth2_proxy-serokell = pkgs.callPackage ../packages/oauth2_proxy {};
@@ -15,11 +15,10 @@ in {
     ./oauth2_proxy_nginx.nix
   ];
 
-  users.users.${name} = {
-    createHome = true;
-    home = "/var/lib/${name}";
+  users.users.${name} = {};
 
-    # Deployment from CI
+  # Deployment from CI
+  users.users.deploy = {
     useDefaultShell = true;
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0vAoNOnqvwI51ypKPVGwVNf2+LB0g8/XFSWazXcq/J" ];
   };
@@ -27,7 +26,7 @@ in {
   # Allow the user to restart the backend service for CD
   security.sudo.extraRules = [
     {
-      users = [ name ];
+      users = [ "deploy" ];
       commands = [{
         command = "/run/current-system/sw/bin/systemctl restart ${name}";
         options = [ "NOPASSWD" ];
@@ -126,8 +125,6 @@ in {
     unitConfig.ConditionPathExists = [ profile ];
 
     environment = {
-      HOME = "/var/lib/${name}";
-
       # PGUSER and PGDATABASE set at server level
       PGHOST = "matar";
     };
@@ -136,17 +133,11 @@ in {
       Restart = "on-failure";
       RestartSec = 1;
       User = name;
+      StateDirectory = name;
 
       # Contains app secrets
       EnvironmentFile = "${vs.${name}}/environment";
     };
-
-    # Ensure upload folder exists and permissions are correct
-    preStart = ''
-      mkdir -p $HOME/files
-      chmod 0755 $HOME/files
-      chown -R "$USER" $HOME
-    '';
 
     script = ''
       # Fail on unset variables to ensure PG* are all defined
@@ -158,7 +149,7 @@ in {
       exec ${profile}/bin/npm start \
         --scripts-prepend-node-path=true \
         --serokell-website:port=${toString port} \
-        --serokell-website:uploadpath=$HOME/files
+        --serokell-website:uploadpath=/var/lib/${name}/files
     '';
   };
 
