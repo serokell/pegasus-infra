@@ -9,12 +9,7 @@
       flake = false;
     };
     deploy-rs.url = "github:serokell/deploy-rs";
-    hackage-search = {
-      type = "github";
-      owner = "serokell";
-      repo = "hackage-search";
-      ref = "zhenya/ghc125-slash-issues";
-    };
+    hackage-search.url = "github:serokell/hackage-search";
     hackage-search.inputs.nixpkgs.follows = "nixpkgs";
   };
 

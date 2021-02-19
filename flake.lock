@@ -332,16 +332,15 @@
         "servant-prometheus": "servant-prometheus"
       },
       "locked": {
-        "lastModified": 1612524673,
+        "lastModified": 1612540938,
         "narHash": "sha256-pW24ICtdivaUVmuCSGnCVya2yNR4dWk/CTATCm5nvh8=",
         "owner": "serokell",
         "repo": "hackage-search",
-        "rev": "884e8eef4f1cffbb197c8e8ace389db37bea5b0c",
+        "rev": "bd503e22382d84be17a12e554d3129d09aa30e2d",
         "type": "github"
       },
       "original": {
         "owner": "serokell",
-        "ref": "zhenya/ghc125-slash-issues",
         "repo": "hackage-search",
         "type": "github"
       }
