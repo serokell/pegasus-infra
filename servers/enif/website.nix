@@ -19,19 +19,27 @@
     redirectURL = "https://serokell.io/oauth2/callback";
   };
 
-  # Refuse any traffic that doesn't send X-From-CloudFront header
-  # Or that is not for the ACME challenge
-  services.nginx.virtualHosts.www.extraConfig = ''
-    if ($request_uri !~ "/\.well-known/acme-challenge/.*") {
-      set $match 1;
-    }
-    if ($http_x_from_cloudfront = "") {
-      set $match 1$match;
-    }
-    if ($match = 11) {
-      return 404;
-    }
-  '';
+  services.nginx.virtualHosts = {
+    # Refuse any traffic that doesn't send X-From-CloudFront header
+    # Or that is not for the ACME challenge
+    www.extraConfig = ''
+      if ($request_uri !~ "/\.well-known/acme-challenge/.*") {
+        set $match 1;
+      }
+      if ($http_x_from_cloudfront = "") {
+        set $match 1$match;
+      }
+      if ($match = 11) {
+        return 404;
+      }
+    '';
+
+    # redirect *.serokell.io to serokell.io
+    "*.serokell.io".globalRedirect = "serokell.io";
+
+    # redirect abf.serokell.io to serokell.io/abf
+    "abf.serokell.io".globalRedirect = "serokell.io/abf";
+  };
 
   # Set internal hostname to be the public DNS name rather than the internal name
   services.oauth2_proxy.nginx.virtualHosts.www.host = "serokell.io";

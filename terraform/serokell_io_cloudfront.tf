@@ -10,8 +10,9 @@ provider "aws" {
 resource "aws_acm_certificate" "cert" {
   provider = aws.us-east-1
 
-  domain_name       = "serokell.io"
-  validation_method = "DNS"
+  domain_name               = "serokell.io"
+  subject_alternative_names = ["*.serokell.io"]
+  validation_method         = "DNS"
 }
 
 # dns records for verifying and renewing the certificate
@@ -43,7 +44,10 @@ resource "aws_acm_certificate_validation" "cert" {
 resource "aws_cloudfront_distribution" "serokell_io" {
   enabled         = true
   is_ipv6_enabled = true
-  aliases         = ["serokell.io"]
+
+  # We serve *.serokell.io through CloudFront as well, because it allows us
+  # to use AWS ACM for convenient certificate management
+  aliases = ["serokell.io", "*.serokell.io"]
 
   origin {
     domain_name = "enif.pegasus.serokell.team"
@@ -114,6 +118,32 @@ resource "aws_route53_record" "serokell_io_ipv4" {
 resource "aws_route53_record" "serokell_io_ipv6" {
   zone_id = data.aws_route53_zone.serokell_io.zone_id
   name    = "serokell.io"
+  type    = "AAAA"
+
+  alias {
+    name                   = aws_cloudfront_distribution.serokell_io.domain_name
+    zone_id                = aws_cloudfront_distribution.serokell_io.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+# ipv4 record for *.serokell.io
+resource "aws_route53_record" "serokell_io_wildcard_ipv4" {
+  zone_id = data.aws_route53_zone.serokell_io.zone_id
+  name    = "*.serokell.io"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.serokell_io.domain_name
+    zone_id                = aws_cloudfront_distribution.serokell_io.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+# ipv6 record for *.serokell.io
+resource "aws_route53_record" "serokell_io_wildcard_ipv6" {
+  zone_id = data.aws_route53_zone.serokell_io.zone_id
+  name    = "*.serokell.io"
   type    = "AAAA"
 
   alias {
