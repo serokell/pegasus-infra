@@ -54,3 +54,12 @@ resource "aws_route53_record" "enif_private_ipv4" {
   ttl     = "60"
   records = [aws_instance.enif.private_ip]
 }
+
+# ariadne.app alias
+resource "aws_route53_record" "ariadne_app" {
+  zone_id = data.aws_route53_zone.ariadne_app.zone_id
+  name    = "ariadne.app"
+  type    = "CNAME"
+  ttl     = "60"
+  records = ["enif.${aws_route53_zone.pegasus_serokell_team.name}"]
+}

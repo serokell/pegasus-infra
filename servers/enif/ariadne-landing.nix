@@ -28,8 +28,15 @@ in {
     }];
   }];
 
-  services.nginx.virtualHosts.www = {
+  services.nginx.virtualHosts = {
     # proxy serokell.io/ariadne to the ariadne-landing service
-    locations."/ariadne".proxyPass = "http://127.0.0.1:${toString port}";
+    www.locations."/ariadne".proxyPass = "http://127.0.0.1:${toString port}";
+
+    # redirect ariadne.app to serokell.io/ariadne
+    "ariadne.app" = {
+      forceSSL = true;
+      enableACME = true;
+      globalRedirect = "serokell.io/ariadne";
+    };
   };
 }
