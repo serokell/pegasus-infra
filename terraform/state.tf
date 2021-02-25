@@ -14,9 +14,9 @@ resource "aws_s3_bucket" "tfstate" {
 
 ## DynamoDB for TF locking and state
 resource "aws_dynamodb_table" "tfstatelock" {
-  name = "serokell-pegasus-tfstate-lock"
-  hash_key = "LockID"
-  read_capacity = 20
+  name           = "serokell-pegasus-tfstate-lock"
+  hash_key       = "LockID"
+  read_capacity  = 20
   write_capacity = 20
 
   lifecycle {

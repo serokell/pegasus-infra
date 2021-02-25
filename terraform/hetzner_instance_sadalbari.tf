@@ -1,8 +1,8 @@
 resource "hcloud_server" "sadalbari" {
-  name = "sadalbari"
-  image = "ubuntu-20.04"
+  name        = "sadalbari"
+  image       = "ubuntu-20.04"
   server_type = "cx31"
-  ssh_keys = [ hcloud_ssh_key.mkaito.id ]
+  ssh_keys    = [hcloud_ssh_key.mkaito.id]
   # Install NixOS 20.03
   user_data = <<EOF
     #cloud-config
