@@ -15,6 +15,9 @@ in {
     ./oauth2_proxy_nginx.nix
   ];
 
+  # give developers access for checking logs
+  serokell-users.regularUsers = [ "hangyas" ];
+
   users.users.${name} = {};
 
   # Deployment from CI
