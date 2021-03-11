@@ -1,7 +1,8 @@
-{ modulesPath, ... }:
+{ modulesPath, inputs, ... }:
 {
   imports = [
-    "${modulesPath}/virtualisation/amazon-image.nix"
+    inputs.serokell-nix.nixosModules.ec2
+
     ./backups.nix
     ./postgresql.nix
   ];
