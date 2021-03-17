@@ -670,7 +670,8 @@
         "flake-compat": "flake-compat_2",
         "hackage-search": "hackage-search",
         "nixpkgs": "nixpkgs_7",
-        "serokell-nix": "serokell-nix_3"
+        "serokell-nix": "serokell-nix_3",
+        "vault-secrets": "vault-secrets"
       }
     },
     "serokell-nix": {
@@ -819,6 +820,21 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vault-secrets": {
+      "locked": {
+        "lastModified": 1615996922,
+        "narHash": "sha256-f0fS/ak6pNzhIesy9e8TZSv/oEfbbmOGhKvKBQCkR/4=",
+        "owner": "serokell",
+        "repo": "vault-secrets",
+        "rev": "f714d2a5dd4d2fc8955bab4a63fee440b3dd6b3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "serokell",
+        "repo": "vault-secrets",
         "type": "github"
       }
     }

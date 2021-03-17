@@ -37,7 +37,7 @@ in {
     }
   ];
 
-  vault-secrets.secrets.oauth2_proxy.environmentPrefix = "oauth2_proxy";
+  vault-secrets.secrets.oauth2_proxy.environmentVariableNamePrefix = "oauth2_proxy";
   services.oauth2_proxy = let
     inherit (config.networking) domain hostName;
   in {
