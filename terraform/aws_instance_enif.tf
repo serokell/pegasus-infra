@@ -55,11 +55,20 @@ resource "aws_route53_record" "enif_private_ipv4" {
   records = [aws_instance.enif.private_ip]
 }
 
-# ariadne.app alias
-resource "aws_route53_record" "ariadne_app" {
+# ariadne.app ipv4 (the record can't be CNAME because it is a zone root)
+resource "aws_route53_record" "ariadne_app_ipv4" {
   zone_id = data.aws_route53_zone.ariadne_app.zone_id
   name    = "ariadne.app"
-  type    = "CNAME"
+  type    = "A"
   ttl     = "60"
-  records = ["enif.${aws_route53_zone.pegasus_serokell_team.name}"]
+  records = [aws_eip.enif.public_ip]
+}
+
+# ariadne.app ipv6
+resource "aws_route53_record" "ariadne_app_ipv6" {
+  zone_id = data.aws_route53_zone.ariadne_app.zone_id
+  name    = "ariadne.app"
+  type    = "AAAA"
+  ttl     = "60"
+  records = [aws_instance.enif.ipv6_addresses[0]]
 }

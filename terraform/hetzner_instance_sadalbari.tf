@@ -28,12 +28,3 @@ resource "aws_route53_record" "sadalbari_pegasus_serokell_team_ipv6" {
   ttl     = "60"
   records = [hcloud_server.sadalbari.ipv6_address]
 }
-
-# youtrack.serokell.io alias
-resource "aws_route53_record" "youtrack_serokell_io" {
-  zone_id = data.aws_route53_zone.serokell_io.zone_id
-  name    = "youtrack.serokell.io"
-  type    = "CNAME"
-  ttl     = "60"
-  records = ["sadalbari.${aws_route53_zone.pegasus_serokell_team.name}"]
-}

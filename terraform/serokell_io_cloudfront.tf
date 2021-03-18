@@ -23,6 +23,11 @@ resource "aws_route53_record" "cert_validation" {
       record = opts.resource_record_value
       type   = opts.resource_record_type
     }
+
+    # terraform-aws provider generates duplicate records for wildcard domains,
+    # use a filter to have only one record
+    # https://github.com/hashicorp/terraform-provider-aws/issues/16913
+    if opts.domain_name == "serokell.io"
   }
 
   zone_id = data.aws_route53_zone.serokell_io.zone_id
