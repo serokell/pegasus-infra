@@ -1,6 +1,6 @@
-provider  "aws" {
+provider "aws" {
   version = "~> 3.20"
-  region = "eu-west-2"
+  region  = "eu-west-2"
 }
 
 # Grab the latest NixOS AMI built by Serokell
@@ -8,12 +8,12 @@ data "aws_ami" "nixos" {
   most_recent = true
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["NixOS-*"]
   }
 
   filter {
-    name = "virtualization-type"
+    name   = "virtualization-type"
     values = ["hvm"]
   }
 

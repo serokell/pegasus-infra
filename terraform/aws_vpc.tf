@@ -1,13 +1,13 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
   version = "= v2.46"
 
   name = "serokell-cluster-vpc"
   cidr = "10.0.0.0/16"
 
-  azs             = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
-  public_subnets   = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
-  public_subnet_ipv6_prefixes     = [0, 1, 2]
+  azs                         = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+  public_subnets              = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+  public_subnet_ipv6_prefixes = [0, 1, 2]
 
   enable_ipv6                     = true
   assign_ipv6_address_on_creation = true
@@ -15,10 +15,10 @@ module "vpc" {
   enable_nat_gateway = true
 
   enable_dns_hostnames = true
-  enable_dns_support = true
+  enable_dns_support   = true
 
-  enable_dhcp_options              = true
-  dhcp_options_domain_name         = "pegasus.serokell.team"
+  enable_dhcp_options      = true
+  dhcp_options_domain_name = "pegasus.serokell.team"
 }
 
 resource "aws_security_group" "cluster_default_sg" {
@@ -99,9 +99,9 @@ resource "aws_security_group" "cluster_pg_sg" {
 
   # PostgreSQL
   ingress {
-    protocol         = "tcp"
-    from_port        = 5432
-    to_port          = 5432
-    cidr_blocks      = [module.vpc.vpc_cidr_block]
+    protocol    = "tcp"
+    from_port   = 5432
+    to_port     = 5432
+    cidr_blocks = [module.vpc.vpc_cidr_block]
   }
 }

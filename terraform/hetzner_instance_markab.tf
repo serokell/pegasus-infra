@@ -1,8 +1,8 @@
 resource "hcloud_server" "markab" {
-  name = "markab"
-  image = "ubuntu-20.04"
+  name        = "markab"
+  image       = "ubuntu-20.04"
   server_type = "cpx21"
-  ssh_keys = [ hcloud_ssh_key.zhenya.id ]
+  ssh_keys    = [hcloud_ssh_key.zhenya.id]
   # Install NixOS 20.03
   user_data = <<EOF
     #cloud-config

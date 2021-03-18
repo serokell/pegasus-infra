@@ -13,6 +13,13 @@
         enableACME = true;
         forceSSL = true;
       };
+
+      # redirect youtrack.serokell.io to issues.serokell.io
+      "youtrack.serokell.io" = {
+        enableACME = true;
+        forceSSL = true;
+        globalRedirect = "issues.serokell.io";
+      };
     };
   };
 
