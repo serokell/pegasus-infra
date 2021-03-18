@@ -11,11 +11,14 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     hackage-search.url = "github:serokell/hackage-search";
     hackage-search.inputs.nixpkgs.follows = "nixpkgs";
+    vault-secrets.url = "github:serokell/vault-secrets";
   };
 
-  outputs = { self, nixpkgs, serokell-nix, deploy-rs, ... }@inputs:
+  outputs =
+    { self, nixpkgs, serokell-nix, deploy-rs, vault-secrets, ... }@inputs:
     let
-      inherit (nixpkgs.lib) nixosSystem filterAttrs const recursiveUpdate optionalAttrs;
+      inherit (nixpkgs.lib)
+        nixosSystem filterAttrs const recursiveUpdate optionalAttrs;
       inherit (builtins) readDir mapAttrs;
       system = "x86_64-linux";
       servers = mapAttrs (path: _: import (./servers + "/${path}"))
@@ -23,8 +26,7 @@
       mkSystem = config:
         nixosSystem {
           inherit system;
-          modules =
-            [ config ./common.nix ];
+          modules = [ config ./common.nix ];
           specialArgs = {
             inputs = inputs;
           } // optionalAttrs (builtins.pathExists ./lib/modules) {
@@ -35,7 +37,8 @@
       deployChecks =
         mapAttrs (_: lib: lib.deployChecks self.deploy) deploy-rs.lib;
 
-      terraformFor = pkgs: pkgs.terraform.withPlugins (p: with p; [ aws vault hcloud ]);
+      terraformFor = pkgs:
+        pkgs.terraform.withPlugins (p: with p; [ aws vault hcloud ]);
 
       checks = mapAttrs (_: pkgs:
         let pkgs' = pkgs.extend serokell-nix.overlay;
@@ -55,28 +58,40 @@
     in {
       nixosConfigurations = mapAttrs (const mkSystem) servers;
 
-      deploy.magicRollback = true;
-      deploy.autoRollback = true;
+      deploy = {
+        magicRollback = true;
+        autoRollback = true;
 
-      deploy.nodes = mapAttrs (_: nixosConfig: {
-        hostname =
-          "${nixosConfig.config.networking.hostName}.${nixosConfig.config.networking.domain}";
         sshOpts = [ "-p" "17788" ];
 
-        profiles.system.user = "root";
-        profiles.system.path = deploy-rs.lib.${system}.activate.nixos nixosConfig;
-      }) self.nixosConfigurations;
+        nodes = mapAttrs (_: nixosConfig: {
+          hostname =
+            "${nixosConfig.config.networking.hostName}.${nixosConfig.config.networking.domain}";
+
+          profiles.system.user = "root";
+          profiles.system.path =
+            deploy-rs.lib.${system}.activate.nixos nixosConfig;
+        }) self.nixosConfigurations;
+      };
 
       devShell = mapAttrs (system: deploy:
-        let pkgs = nixpkgs.legacyPackages.${system}.extend serokell-nix.overlay;
+        let
+          pkgs = serokell-nix.lib.pkgsWith nixpkgs.legacyPackages.${system} [
+            serokell-nix.overlay
+            vault-secrets.overlay
+          ];
         in pkgs.mkShell {
-            buildInputs =
-              [
-                deploy
-                (terraformFor pkgs)
-                pkgs.nixUnstable
-              ];
-          }) deploy-rs.defaultPackage;
+          VAULT_ADDR = "https://vault.serokell.org:8200";
+          SSH_OPTS = "${builtins.concatStringsSep " " self.deploy.sshOpts}";
+          buildInputs = [
+            deploy-rs.packages.${system}.deploy-rs
+            pkgs.vault
+            (pkgs.vault-push-approle-envs self)
+            (pkgs.vault-push-approles self)
+            (terraformFor pkgs)
+            pkgs.nixUnstable
+          ];
+        }) deploy-rs.defaultPackage;
 
       checks = recursiveUpdate deployChecks checks;
     };

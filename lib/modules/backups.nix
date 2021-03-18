@@ -3,7 +3,7 @@ let
   vs = config.vault-secrets.secrets;
 in {
   vault-secrets.secrets.borgbackup = {
-    secretsBase64 = true;
+    secretsAreBase64 = true;
     services = [ "borgbackup-job-backup" ];
   };
 
