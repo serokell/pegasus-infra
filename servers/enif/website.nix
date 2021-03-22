@@ -35,10 +35,22 @@
     '';
 
     # redirect *.serokell.io to serokell.io
-    "*.serokell.io".globalRedirect = "serokell.io";
+    "*.serokell.io" = {
+      globalRedirect = "serokell.io";
+
+      # We enable ssl, but we don't need to issue extra certificates,
+      # because requests are sent via cloudfront to 'enif.pegasus.serokell.team',
+      # with 'Host' header forwarded
+      addSSL = true;
+      useACMEHost = "enif.pegasus.serokell.team";
+    };
 
     # redirect abf.serokell.io to serokell.io/abf
-    "abf.serokell.io".globalRedirect = "serokell.io/abf";
+    "abf.serokell.io" = {
+      globalRedirect = "serokell.io/abf";
+      addSSL = true;
+      useACMEHost = "enif.pegasus.serokell.team";
+    };
   };
 
   # Set internal hostname to be the public DNS name rather than the internal name
