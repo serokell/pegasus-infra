@@ -5,6 +5,7 @@ in {
   imports = [
     inputs.serokell-nix.nixosModules.common
     inputs.serokell-nix.nixosModules.serokell-users
+    inputs.serokell-nix.nixosModules.wireguard-monitoring
     inputs.vault-secrets.nixosModules.vault-secrets
   ];
 

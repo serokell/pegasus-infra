@@ -8,4 +8,5 @@
   ];
 
   networking.hostName = "matar";
+  wireguard-ip-address = "172.21.0.7";
 }

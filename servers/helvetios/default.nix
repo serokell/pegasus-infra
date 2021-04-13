@@ -8,4 +8,5 @@
   ];
 
   networking.hostName = "helvetios";
+  wireguard-ip-address = "172.21.0.5";
 }

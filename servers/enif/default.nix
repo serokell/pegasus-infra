@@ -9,4 +9,5 @@
   ];
 
   networking.hostName = "enif";
+  wireguard-ip-address = "172.21.0.4";
 }
