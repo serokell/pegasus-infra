@@ -60,6 +60,15 @@ resource "aws_security_group" "cluster_default_sg" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+
+  # wireguard
+  ingress {
+    from_port        = 51820
+    to_port          = 51820
+    protocol         = "udp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 }
 
 resource "aws_security_group" "cluster_http_sg" {
