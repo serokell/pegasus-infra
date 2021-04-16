@@ -60,7 +60,7 @@ in {
 
       serviceConfig = {
         Restart = "on-failure";
-        RestartSec = 10;
+        RestartSec = lib.mkDefault 10;
       };
     };
 }
