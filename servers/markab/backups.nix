@@ -45,6 +45,12 @@ in {
     '';
   };
 
+  systemd.services."borgbackup-job-backup".serviceConfig = {
+    # borgbackup job may fail if it runs while youtrack is creating a new
+    # backup, give it 5 more minutes in this case
+    RestartSec = "5min";
+  };
+
   # Oneshot systemd service to extract latest youtrack backup into /tmp/youtrack-dump.
   # Intended to be run manually
   systemd.services.extract-youtrack-backup = {
