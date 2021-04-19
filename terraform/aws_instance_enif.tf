@@ -12,7 +12,7 @@ resource "aws_instance" "enif" {
   ]
 
   # Instance parameters
-  instance_type = "t3a.nano"
+  instance_type = "t3a.micro"
   monitoring    = true
 
   # Disk type, size, and contents
