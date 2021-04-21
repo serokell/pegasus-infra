@@ -16,7 +16,7 @@ in {
   ];
 
   # give developers access for checking logs
-  serokell-users.regularUsers = [ "hangyas" ];
+  serokell-users.regularUsers = [ "hangyas" "masiama" ];
 
   users.users.${name} = {};
 
