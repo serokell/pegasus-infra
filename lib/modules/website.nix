@@ -130,6 +130,8 @@ in {
     environment = {
       # PGUSER and PGDATABASE set at server level
       PGHOST = "matar";
+      ADMINS =
+        "aw@serokell.io denis.oleynikov@serokell.io dmitrii.susloparov@serokell.io gints.dreimanis@serokell.io jm@serokell.io leonid.cupikov@serokell.io olga.bolgurtseva@serokell.io seroka@serokell.io yulia.gavrilova@serokell.io";
     };
 
     serviceConfig = {
