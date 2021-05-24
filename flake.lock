@@ -823,11 +823,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1619084227,
-        "narHash": "sha256-ZBaxfxbuqypzrox77O4d2fYi+P53XbdniRgSFOw0lWA=",
+        "lastModified": 1621844655,
+        "narHash": "sha256-LlXyUc7tNNmnWS/W0zz0OVtpSgEu1zBxp0TBPxNokdg=",
         "owner": "serokell",
         "repo": "serokell.nix",
-        "rev": "c4740af15a4e9396e2b82cb0d2cf9e04acf88976",
+        "rev": "42b192ca488df6e0ae5f4e3abbe99e615b632e55",
         "type": "github"
       },
       "original": {
