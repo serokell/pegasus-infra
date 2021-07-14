@@ -18,11 +18,14 @@ in {
   # give developers access for checking logs
   serokell-users.regularUsers = [ "hangyas" "masiama" ];
 
-  users.users.${name} = {};
+  users.users.${name} = {
+    isSystemUser = true;
+  };
 
   # Deployment from CI
   users.users.deploy = {
     useDefaultShell = true;
+    isSystemUser = true;
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0vAoNOnqvwI51ypKPVGwVNf2+LB0g8/XFSWazXcq/J" ];
   };
 

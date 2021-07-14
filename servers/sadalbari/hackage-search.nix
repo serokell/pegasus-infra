@@ -22,7 +22,7 @@ in {
   # Deployment from CI
   users.users.deploy = {
     useDefaultShell = true;
-
+    isSystemUser = true;
     # Pipeline: serokell/hackage-search
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKqZIf4rw89vg/EpDaYkSm3i5y8WkQv7ByI8yy9elqcl" ];
   };
